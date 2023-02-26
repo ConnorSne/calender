@@ -1,0 +1,66 @@
+class Calendar {
+  constructor(year) {
+    this.year = year;
+    this.tasks = {};
+  }
+
+  // method to add a task to a specific date
+  addTask(date, task, time, ampm, priority) 
+{
+    // check if the date is valid and the task is not empty
+    if (isValidDate(date) && task.trim() !== '') 
+{
+      if (!this.tasks[date]) 
+{
+        this.tasks[date] = [];
+      }
+      // add the task to the list of tasks for the date
+      this.tasks[date].push(
+{
+        task: task,
+        time: time,
+        ampm: ampm,
+        priority: priority
+      });
+    }
+  }
+
+  // method to get tasks for a specific date
+  getTasksForDate(date)
+ {
+    if (this.tasks[date]) 
+{
+      return this.tasks[date];
+    }
+    return [];
+  }
+
+  // method to get top-priority tasks across all dates
+  getTopPriorityTasks() 
+{
+    let topPriorityTasks = [];
+    for (let date in this.tasks) 
+{
+      let tasks = this.tasks[date];
+      for (let i = 0; i < tasks.length; i++) 
+{
+        let task = tasks[i];
+        if (task.priority === 'high') 
+{
+          topPriorityTasks.push(task);
+        }
+      }
+    }
+    return topPriorityTasks;
+  }
+
+  // helper method to validate date input
+  isValidDate(date) {
+    // your implementation of date validation logic
+  }
+}
+
+let tasksForDate = calendar.getTasksForDate();
+let topPriorityTasks = calendar.getTopPriorityTasks();
+console.log(tasksForDate);
+console.log(topPriorityTasks);
